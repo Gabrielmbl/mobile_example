@@ -70,7 +70,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       appBar: AppBar(
           title: Text("Homepage"),
           backgroundColor: Color.fromARGB(255, 66, 217, 255),
-          leading: Icon(Icons.home)),
+          ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
