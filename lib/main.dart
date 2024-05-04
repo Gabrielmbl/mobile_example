@@ -7,25 +7,21 @@ import 'package:flutter_application_1/register.dart';
 import 'package:flutter_application_1/screen2.dart';
 import 'package:flutter_application_1/screen3.dart';
 import 'package:flutter_application_1/screen4.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/widgets.dart';
 
-void main() {
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
   runApp(const MyApp());
+
+  // Print device info
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  print('Running on ${androidInfo.model}');
 }
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'CSCI 480 App',
-//       home: bibleScreen(),
-//     );
-//   }
-// }
 
 
 class MyApp extends StatelessWidget {
@@ -60,10 +56,14 @@ class HomePage extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => bibleScreen()),
+              // );
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => bibleScreen()),
-              );
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight, child: bibleScreen()));
             },
             child: Text('Go to Bible Screen'),
           ),
@@ -107,7 +107,9 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Screen2(name: 'Something', year: 2024)),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Screen2(name: 'Something', year: 2024)),
               );
             },
             child: Text('Go to Screen 2'),
@@ -137,65 +139,8 @@ class HomePage extends StatelessWidget {
 }
 
 
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'CSCI 480 App',
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Main Screen'),
-//         ),
-//         body: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => CalculatorPage()),
-//                   );
-//                 },
-//                 child: const Text('Go to Calculator'),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => Screen2(name: 'Something', year: 2024)),
-//                   );
-//                 },
-//                 child: const Text('Go to Screen 2'),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => Screen3()),
-//                   );
-//                 },
-//                 child: const Text('Go to Screen 3'),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => Screen4()),
-//                   );
-//                 },
-//                 child: const Text('Go to Screen 4'),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+void printDeviceInfo() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  print('Running on ${androidInfo.model}');
+}
